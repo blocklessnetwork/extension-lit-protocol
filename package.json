@@ -4,7 +4,8 @@
   "main": "index.js",
   "scripts": {
     "build": "yarn dllify build",
-    "test": "yarn dllify test"
+    "test": "node test.js",
+    "test:dll": "yarn dllify test"
   },
   "repository": {
     "type": "git",
@@ -18,6 +19,7 @@
   "homepage": "https://github.com/blocklessnetwork/extension-lit-protocol#readme",
   "description": "",
   "dependencies": {
-    "@blocklessnetwork/dllify": "../nodejs-dll"
+    "@blocklessnetwork/dllify": "../nodejs-dll",
+    "lit-js-sdk": "^1.1.234"
   }
 }
