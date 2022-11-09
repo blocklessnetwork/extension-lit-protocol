@@ -21,14 +21,14 @@ jobs:
         with:
           go-version: "1.18"
           check-latest: true
-      - run: make
+      - run: npm i && npm run build
       - name: Archive Release
         uses: thedoctor0/zip-release@main
         with:
           type: "tar"
           directory: build/
           filename: ../lit-protocol-${{ matrix.platform }}.tar.gz
-          path: lit*
+          path: extension*
       - name: Get release
         id: get_release
         uses: bruceadams/get-release@v1.2.3
