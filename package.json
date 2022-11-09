@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "yarn dllify",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "yarn dllify build",
+    "test": "yarn dllify test"
   },
   "repository": {
     "type": "git",
@@ -18,6 +18,6 @@
   "homepage": "https://github.com/blocklessnetwork/extension-lit-protocol#readme",
   "description": "",
   "dependencies": {
-    "@blocklessnetwork/dllify": "https://github.com/blocklessnetwork/nodejs-dllify.git"
+    "@blocklessnetwork/dllify": "../nodejs-dll"
   }
 }
