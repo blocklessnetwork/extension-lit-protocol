@@ -1,0 +1,45 @@
+on:
+  release:
+    types: [created]
+
+name: Release
+jobs:
+  blockless_networking_release:
+    strategy:
+      matrix:
+        include:
+          - host: "ubuntu-latest"
+            platform: "linux-amd64"
+          - host: "macos-latest"
+            platform: "darwin-amd64"
+          - host: "self-hosted"
+            platform: "darwin-arm64"
+    runs-on: ${{ matrix.host }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-go@v3
+        with:
+          go-version: "1.18"
+          check-latest: true
+      - run: make
+      - name: Archive Release
+        uses: thedoctor0/zip-release@main
+        with:
+          type: "tar"
+          directory: build/
+          filename: ../lit-protocol-${{ matrix.platform }}.tar.gz
+          path: lit*
+      - name: Get release
+        id: get_release
+        uses: bruceadams/get-release@v1.2.3
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+      - name: upload artifact
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.get_release.outputs.upload_url }}
+          asset_path: lit-protocol-${{ matrix.platform }}.tar.gz
+          asset_name: lit-protocol-${{ matrix.platform }}.tar.gz
+          asset_content_type: application/gzip

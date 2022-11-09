@@ -1,0 +1,23 @@
+{
+  "name": "extension-lit-protocol",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "yarn dllify",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blocklessnetwork/extension-lit-protocol.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/blocklessnetwork/extension-lit-protocol/issues"
+  },
+  "homepage": "https://github.com/blocklessnetwork/extension-lit-protocol#readme",
+  "description": "",
+  "dependencies": {
+    "@blocklessnetwork/dllify": "../nodejs-dll"
+  }
+}
