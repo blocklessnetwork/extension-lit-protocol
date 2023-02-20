@@ -4,8 +4,7 @@
   "main": "index.js",
   "scripts": {
     "build": "yarn dllify build",
-    "test": "node test.js",
-    "test:dll": "yarn dllify test"
+    "test": "node test.js"
   },
   "repository": {
     "type": "git",

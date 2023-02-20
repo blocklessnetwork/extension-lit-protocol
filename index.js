@@ -1,16 +1,35 @@
-const dllify = require("@blocklessnetwork/dllify");
-const LitJsSdk = require("lit-js-sdk");
-// this function will be called from C interface
-// a message from ipc is passed in with jwt property
-// export the return for testing
-const verifyJwt = dllify.export("verifyJwt", ({ jwt }) => {
-  // perform jwt verification
-  const { verified, header, payload } = LitJsSdk.verifyJwt({ jwt });
+const Dllify = require("@blocklessnetwork/dllify");
+var LitJsSdk = require("lit-js-sdk/build/index.node.js");
+const { initWasmBlsSdk } = require("lit-js-sdk/build/index.node.js");
 
-  // return jwt verification result
-  return { verified, header, payload };
-});
-
-module.exports = {
-  verifyJwt,
+globalThis.litConfig = {
+  debug: false,
 };
+
+async function sleep(wait) {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(), wait);
+  });
+}
+
+async function main() {
+  // ensure the wasm file is loaded
+  await initWasmBlsSdk();
+
+  // Create a CGI Runtime Extension
+  const litExtension = new Dllify.CGIExtension({
+    name: "bls-lit-extension",
+    alias: "lit-extension",
+    description: "Lit extension for Blockless Runtime",
+  });
+
+  // Export methods to runtime
+  litExtension.export("verifyJWT", async (jwt) => {
+    const { verified, header, payload } = LitJsSdk.verifyJwt({ jwt });
+    return JSON.stringify({ verified, header, payload });
+  });
+
+  await litExtension.execute();
+}
+
+main();
