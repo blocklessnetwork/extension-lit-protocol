@@ -6,12 +6,6 @@ globalThis.litConfig = {
   debug: false,
 };
 
-async function sleep(wait) {
-  return new Promise((resolve) => {
-    setTimeout(() => resolve(), wait);
-  });
-}
-
 async function main() {
   // ensure the wasm file is loaded
   await initWasmBlsSdk();
