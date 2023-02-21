@@ -18,7 +18,7 @@
   "homepage": "https://github.com/blocklessnetwork/extension-lit-protocol#readme",
   "description": "",
   "dependencies": {
-    "@blocklessnetwork/dllify": "../nodejs-dll",
-    "lit-js-sdk": "^1.1.234"
+    "@blocklessnetwork/dllify": "https://github.com/blocklessnetwork/nodejs-dllify.git",
+    "lit-js-sdk": "^1.1.246"
   }
 }
