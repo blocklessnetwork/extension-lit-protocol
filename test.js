@@ -1,4 +1,5 @@
 const { exec } = require("child_process");
+const packageJson = require("./package.json");
 
 // Get the command and parameters from command-line arguments
 const command = process.argv[2];
@@ -18,7 +19,7 @@ const length = Buffer.byteLength(payloadStr, "utf8");
 const commandStr = `echo -e "${length}\\r\\n${payloadStr.replace(
   /"/g,
   '\\"'
-)}" | ./build/extension-lit-protocol`;
+)}" | ./build/${packageJson.name}`;
 
 // Execute the shell command
 exec(commandStr, (error, stdout, stderr) => {
