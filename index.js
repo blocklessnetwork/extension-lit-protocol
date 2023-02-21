@@ -1,5 +1,6 @@
 const Dllify = require("@blocklessnetwork/dllify");
 const LitJsSdk = require("lit-js-sdk/build/index.node.js");
+const { verifyJwt } = require("lit-jwt-verifier");
 const { initWasmBlsSdk } = require("lit-js-sdk/build/index.node.js");
 
 globalThis.litConfig = {
@@ -19,8 +20,8 @@ async function main() {
 
   // Export methods to runtime
   litExtension.export("verifyJWT", async (jwt) => {
-    const { verified, header, payload } = LitJsSdk.verifyJwt({ jwt });
-    return JSON.stringify({ verified, header, payload });
+    const { payload, header, signature, verified } = verifyJwt({ jwt });
+    return JSON.stringify({ payload, header, signature, verified });
   });
 
   litExtension.export(
