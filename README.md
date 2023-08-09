@@ -21,3 +21,12 @@ output
 ```bash
 {"verified":true,"header":{"alg":"BLS12-381","typ":"JWT"},"payload":{"iss":"LIT","sub":"0x50e2dac5e78b5905cb09495547452cee64426db2","chain":"polygon","iat":1668028792,"exp":1668071992,"baseUrl":"my-dynamic-content-server.com","path":"/aixwzhnshhsw119b5e4ske","orgId":"","role":"","extraData":""}}
 ```
+
+## building the C example
+
+using `wasi-sdk`
+
+```bash
+WASI_SDK_PATH=/path/to/wasi-sdk
+$WASI_SDK_PATH/bin/clang --sysroot=$WASI_SDK_PATH/share/wasi-sysroot example.c -o example.wasm -O3
+```

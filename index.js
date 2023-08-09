@@ -1,15 +1,11 @@
 const Dllify = require("@blocklessnetwork/dllify");
-const LitJsSdk = require("lit-js-sdk/build/index.node.js");
-const { verifyJwt } = require("lit-jwt-verifier");
-const { initWasmBlsSdk } = require("lit-js-sdk/build/index.node.js");
-
-globalThis.litConfig = {
-  debug: false,
-};
+const LitNodeClient = require("@lit-protocol/lit-node-client-nodejs");
+const LitJsSdk = require("lit-js-sdk");
+const { argv } = require("process");
 
 async function main() {
-  // ensure the wasm file is loaded
-  await initWasmBlsSdk();
+  //   // ensure the wasm file is loaded
+  await LitJsSdk.initWasmBlsSdk();
 
   // Create a CGI Runtime Extension
   const litExtension = new Dllify.CGIExtension({
@@ -18,16 +14,18 @@ async function main() {
     description: "Lit extension for Blockless Runtime",
   });
 
-  // Export methods to runtime
+  //   // Export methods to runtime
   litExtension.export("verifyJWT", async (jwt) => {
-    const { payload, header, signature, verified } = verifyJwt({ jwt });
-    return JSON.stringify({ payload, header, signature, verified });
+    const { verified, header, payload } = LitJsSdk.verifyJwt({
+      jwt,
+    });
+    return JSON.stringify({ verified, header, payload });
   });
 
   litExtension.export(
     "runLitAction",
     async (litActionCode, authSig, params) => {
-      const litNodeClient = new LitJsSdk.LitNodeClient({
+      const litNodeClient = new LitNodeClient.LitNodeClient({
         litNetwork: "serrano",
       });
       await litNodeClient.connect();

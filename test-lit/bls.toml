@@ -1,0 +1,15 @@
+name = "test-lit"
+version = "1.0.0"
+
+[deployment]
+nodes = 1
+
+[build]
+dir = "build"
+entry = "test-lit_debug.wasm"
+command = "npm run build:debug"
+
+[build_release]
+dir = "build"
+entry = "test-lit.wasm"
+command = "npm run build:release"

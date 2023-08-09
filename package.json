@@ -18,8 +18,9 @@
   "homepage": "https://github.com/blocklessnetwork/extension-lit-protocol#readme",
   "description": "",
   "dependencies": {
+    "@blockless/sdk": "^1.1.2",
     "@blocklessnetwork/dllify": "https://github.com/blocklessnetwork/nodejs-dllify.git",
-    "lit-js-sdk": "^1.3.2",
-    "lit-jwt-verifier": "^1.0.2"
+    "@lit-protocol/lit-node-client-nodejs": "^2.2.47",
+    "lit-js-sdk": "^1.1.250"
   }
 }
