@@ -4,6 +4,7 @@
   "main": "index.js",
   "scripts": {
     "build": "yarn dllify build",
+    "install": "cp build/extension-lit-protocol $HOME/.bls/extensions",
     "test": "node test.js"
   },
   "repository": {
