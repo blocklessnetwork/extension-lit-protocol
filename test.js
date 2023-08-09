@@ -21,6 +21,8 @@ const commandStr = `echo -e "${length}\\r\\n${payloadStr.replace(
   '\\"'
 )}" | ./build/${packageJson.name}`;
 
+console.log(commandStr);
+
 // Execute the shell command
 exec(commandStr, (error, stdout, stderr) => {
   if (error) {
