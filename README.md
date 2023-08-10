@@ -22,11 +22,18 @@ output
 {"verified":true,"header":{"alg":"BLS12-381","typ":"JWT"},"payload":{"iss":"LIT","sub":"0x50e2dac5e78b5905cb09495547452cee64426db2","chain":"polygon","iat":1668028792,"exp":1668071992,"baseUrl":"my-dynamic-content-server.com","path":"/aixwzhnshhsw119b5e4ske","orgId":"","role":"","extraData":""}}
 ```
 
-## building the C example
+## building the example
 
-using `wasi-sdk`
+`test-extension` is the source for a WASM function. Build using
 
 ```bash
-WASI_SDK_PATH=/path/to/wasi-sdk
-$WASI_SDK_PATH/bin/clang --sysroot=$WASI_SDK_PATH/share/wasi-sysroot example.c -o example.wasm -O3
+(cd test-extension && npm run build:release)
+```
+
+## executing the example
+
+depends on the blockless runtime. a precompiled version of the runtime can be found on github https://github.com/blocklessnetwork/bls-runtime/releases
+
+```
+bls-runtime --drivers-root-path=$PWD/build $PWD/test-extension/build/release.wasm
 ```
