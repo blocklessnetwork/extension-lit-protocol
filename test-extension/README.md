@@ -1,3 +1,5 @@
-# Blockless Hello World Example
+# Blockless Function - Lit Extension Example
 
-This is a simple application that when deployed will repeat back the string given.
+This simple application executes a Lit Action against a PKP provided the `ipfsId`, `authSig`, and some `params`.
+
+A `JWT` created on the Lit Network can also be verified using a Blockless Function.
