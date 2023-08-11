@@ -17,25 +17,30 @@ function isExtensionAvailable(alias: string): boolean {
   return isMatch;
 }
 
-function testLitProtocol(): void {
+function verifyJWT(jwt: string): void {
   let command = new cgi.CgiCommand("lit-extension", [], []);
   let rs = command.exec();
 
   if (rs === true) {
     Console.log(`Start Verify JWT ...`);
-    const verifyJwtResponse = command.callMethod("verifyJWT", [
-      "eyJhbGciOiJCTFMxMi0zODEiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJMSVQiLCJzdWIiOiIweGZmZjE3NWMxNGEyOTllZjcwMjdkYTBkMzQ4ZjQzOGUxNTQ4ODBjY2QiLCJjaGFpbiI6ImV0aGVyZXVtIiwiaWF0IjoxNjc2NDQ0NTcwLCJleHAiOjE2NzY0ODc3NzAsImJhc2VVcmwiOiJsaXQtdGVzdC5ibHMuZGV2IiwicGF0aCI6Ii81Ym9uanB4NHE2Nmoxbng2c2ZoZjEiLCJvcmdJZCI6IiIsInJvbGUiOiIiLCJleHRyYURhdGEiOiIifQ.puWAqp82-1OM-jiHwl2jFroforAU7A5DY_4u9lXZ9KbuPHFcXQB-ovWN9DWfD7DGBf-KxT5_6f5Ii0cHmWi3TAFv-KAVkIYPAX-r_6tV6_ot2mle8pU7f43O_I_mjxwi",
-    ]);
+    const verifyJwtResponse = command.callMethod("verifyJWT", [jwt]);
     Console.log(`Verify JWT Response:`);
     Console.log(verifyJwtResponse);
+    // return verifyJwtResponse;
+  }
+}
 
+function executeJs(ipfsId: string, authSig: string, params: string): void {
+  let command = new cgi.CgiCommand("lit-extension", [], []);
+  let rs = command.exec();
+  if (rs === true) {
     Console.log(`Start Lit action ...`);
 
     const authSigEncoder = new json.JSONEncoder();
     authSigEncoder.pushObject(null);
     authSigEncoder.setString(
       "sig",
-      "QmQ5yzoCvYcdW6kBqUnFXx6ZNJzQRAsthDvthutwoPggrL"
+      "0x2bb705d93dc064d1e5b5bc15f43c265db3ea8795802a2a7a72f51bc9a42ffa9c6121c6508244a74cd91c3e4a2882dd134381367fb74c801a799a2ce1fbaa0d431b"
     );
     authSigEncoder.setString("derivedVia", "web3.eth.personal.sign");
     authSigEncoder.setString(
@@ -79,6 +84,7 @@ function testLitProtocol(): void {
     paramsEncoder.setString("sigName", "sig1");
     paramsEncoder.popObject();
 
+    Console.log("calling actions");
     const runLitActionResponse = command.callMethod("executeJs", [
       "QmQ5yzoCvYcdW6kBqUnFXx6ZNJzQRAsthDvthutwoPggrL",
       authSigEncoder.toString(),
@@ -90,8 +96,16 @@ function testLitProtocol(): void {
   }
 }
 
+function main(): void {
+  verifyJWT(
+    "eyJhbGciOiJCTFMxMi0zODEiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJMSVQiLCJzdWIiOiIweGZmZjE3NWMxNGEyOTllZjcwMjdkYTBkMzQ4ZjQzOGUxNTQ4ODBjY2QiLCJjaGFpbiI6ImV0aGVyZXVtIiwiaWF0IjoxNjc2NDQ0NTcwLCJleHAiOjE2NzY0ODc3NzAsImJhc2VVcmwiOiJsaXQtdGVzdC5ibHMuZGV2IiwicGF0aCI6Ii81Ym9uanB4NHE2Nmoxbng2c2ZoZjEiLCJvcmdJZCI6IiIsInJvbGUiOiIiLCJleHRyYURhdGEiOiIifQ.puWAqp82-1OM-jiHwl2jFroforAU7A5DY_4u9lXZ9KbuPHFcXQB-ovWN9DWfD7DGBf-KxT5_6f5Ii0cHmWi3TAFv-KAVkIYPAX-r_6tV6_ot2mle8pU7f43O_I_mjxwi"
+  );
+
+  executeJs("", "", "");
+}
+
 if (isExtensionAvailable("lit-extension")) {
-  testLitProtocol();
+  main();
 } else {
   Console.log("Extension not available.");
 }
