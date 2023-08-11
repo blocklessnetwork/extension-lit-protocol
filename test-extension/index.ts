@@ -28,6 +28,7 @@ function verifyJWT(jwt: string): void {
     Console.log(verifyJwtResponse);
     // return verifyJwtResponse;
   }
+  command.close();
 }
 
 function executeJs(ipfsId: string, authSig: string, params: string): void {
@@ -94,6 +95,7 @@ function executeJs(ipfsId: string, authSig: string, params: string): void {
     Console.log(`Lit Action Response:`);
     Console.log(runLitActionResponse);
   }
+  command.close();
 }
 
 function main(): void {
