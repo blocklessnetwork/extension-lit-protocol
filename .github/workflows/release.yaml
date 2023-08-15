@@ -10,10 +10,10 @@ jobs:
         include:
           - host: "ubuntu-latest"
             platform: "linux-amd64"
-          - host: "macos-latest"
-            platform: "darwin-amd64"
-          - host: "self-hosted"
-            platform: "darwin-arm64"
+          # - host: "macos-latest"
+          #   platform: "darwin-amd64"
+          # - host: "self-hosted"
+          #   platform: "darwin-arm64"
     runs-on: ${{ matrix.host }}
     steps:
       - uses: actions/checkout@v2
