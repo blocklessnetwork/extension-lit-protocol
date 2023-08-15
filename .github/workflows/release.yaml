@@ -67,7 +67,7 @@ jobs:
         with:
           type: "tar"
           directory: build/
-          filename: ../extension-lit-protocol-win-arm64.tar.gz
+          filename: ../extension-lit-protocol-win-x64.tar.gz
           path: extension-lit-protocol-win-x64.exe
 
       - name: Get release
