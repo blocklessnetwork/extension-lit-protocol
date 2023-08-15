@@ -1,4 +1,4 @@
-const Dllify = require("@blocklessnetwork/dllify");
+const Dllify = require("@blockless/dllify");
 const LitJsSdk = require("lit-js-sdk");
 
 const LitNodeClient = require("@lit-protocol/lit-node-client");
