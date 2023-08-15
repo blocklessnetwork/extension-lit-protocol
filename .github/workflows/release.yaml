@@ -4,7 +4,7 @@ on:
 
 name: Release
 jobs:
-  blockless_networking_release:
+  extension-release:
     strategy:
       matrix:
         include:
@@ -30,19 +30,105 @@ jobs:
         with:
           type: "tar"
           directory: build/
-          filename: ../lit-protocol-${{ matrix.platform }}.tar.gz
-          path: extension*
+          filename: ../extension-lit-protocol-linux-arm64.tar.gz
+          path: extension-lit-protocol-linux-arm64
+      - name: Archive Release
+        uses: thedoctor0/zip-release@main
+        with:
+          type: "tar"
+          directory: build/
+          filename: ../extension-lit-protocol-linux-x64.tar.gz
+          path: extension-lit-protocol-linux-x64
+
+      - name: Archive Release
+        uses: thedoctor0/zip-release@main
+        with:
+          type: "tar"
+          directory: build/
+          filename: ../extension-lit-protocol-macos-arm64.tar.gz
+          path: extension-lit-protocol-macos-arm64
+      - name: Archive Release
+        uses: thedoctor0/zip-release@main
+        with:
+          type: "tar"
+          directory: build/
+          filename: ../extension-lit-protocol-macos-x64.tar.gz
+          path: extension-lit-protocol-macos-x64
+
+      - name: Archive Release
+        uses: thedoctor0/zip-release@main
+        with:
+          type: "tar"
+          directory: build/
+          filename: ../extension-lit-protocol-win-arm64.tar.gz
+          path: extension-lit-protocol-win-arm64.exe
+      - name: Archive Release
+        uses: thedoctor0/zip-release@main
+        with:
+          type: "tar"
+          directory: build/
+          filename: ../extension-lit-protocol-win-arm64.tar.gz
+          path: extension-lit-protocol-win-x64.exe
+
       - name: Get release
         id: get_release
         uses: bruceadams/get-release@v1.3.2
         env:
           GITHUB_TOKEN: ${{ github.token }}
+
       - name: upload artifact
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           upload_url: ${{ steps.get_release.outputs.upload_url }}
-          asset_path: lit-protocol-${{ matrix.platform }}.tar.gz
-          asset_name: lit-protocol-${{ matrix.platform }}.tar.gz
+          asset_path: extension-lit-protocol-linux-arm64.tar.gz
+          asset_name: extension-lit-protocol-linux-arm64.tar.gz
+          asset_content_type: application/gzip
+      - name: upload artifact
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.get_release.outputs.upload_url }}
+          asset_path: extension-lit-protocol-linux-x64.tar.gz
+          asset_name: extension-lit-protocol-linux-x64.tar.gz
+          asset_content_type: application/gzip
+
+      - name: upload artifact
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.get_release.outputs.upload_url }}
+          asset_path: extension-lit-protocol-macos-arm64.tar.gz
+          asset_name: extension-lit-protocol-macos-arm64.tar.gz
+          asset_content_type: application/gzip
+      - name: upload artifact
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.get_release.outputs.upload_url }}
+          asset_path: extension-lit-protocol-macos-x64.tar.gz
+          asset_name: extension-lit-protocol-macos-x64.tar.gz
+          asset_content_type: application/gzip
+
+      - name: upload artifact
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.get_release.outputs.upload_url }}
+          asset_path: extension-lit-protocol-win-arm64.tar.gz
+          asset_name: extension-lit-protocol-win-arm64.tar.gz
+          asset_content_type: application/gzip
+      - name: upload artifact
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.get_release.outputs.upload_url }}
+          asset_path: extension-lit-protocol-win-x64.tar.gz
+          asset_name: extension-lit-protocol-win-x64.tar.gz
           asset_content_type: application/gzip
